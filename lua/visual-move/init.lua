@@ -1,25 +1,22 @@
 local M = {}
 
-vim.keymap.set('n', "<M-j>", function ()
-  return M.down()
+vim.keymap.set("n", "<M-j>", function()
+	return M.down()
 end)
 
-vim.keymap.set('n', '<M-k>', function ()
-  return M.up()  
+vim.keymap.set("n", "<M-k>", function()
+	return M.up()
 end)
 
-M.down = function ()
-  vim.api.nvim_feedkeys('ddjP', 'n', {})
+M.down = function()
+	vim.api.nvim_feedkeys('"0ddj"0P', "n", {})
 end
 
-M.up = function ()
-  vim.api.nvim_feedkeys('ddkP', 'n', {})
+M.up = function()
+	vim.api.nvim_feedkeys('"0ddk"0P', "n", {})
 end
 
 return M
-
-
-
 
 --1111111111111111
 --  2222222222222222222222
