@@ -12,19 +12,25 @@ vim.keymap.set("n", "<M-j>", function()
 end)
 
 vim.keymap.set("n", "<M-k>", function()
-	return M.up()
+	local num, len = M._get_line_number()
+	return M.up(table.unpack(num), len)
 end)
 
 M.down = function(num, len)
+  if num == len then return end
 	if num < len - 1 then
 		vim.api.nvim_feedkeys('"0ddj"0P', "n", {})
-	elseif num == len - 1 then -- handles a literal edge case
+	else -- handles a literal edge case
 		vim.api.nvim_feedkeys('"0dd"0p', "n", {})
 	end
 end
 
-M.up = function()
-	vim.api.nvim_feedkeys('"0ddk"0P', "n", {})
+M.up = function(num, len)
+  if num == 1 then return end
+	if num > 1 and num < len  then
+		vim.api.nvim_feedkeys('"0ddk"0P', "n", {})
+  else -- handles a literal edge case
+	  vim.api.nvim_feedkeys('"0dd"0P', "n", {})
+	end
 end
-
 return M
